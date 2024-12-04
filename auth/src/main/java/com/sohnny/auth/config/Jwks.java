@@ -23,6 +23,10 @@ public final class Jwks {
     private Jwks() {
     }
 
+    /**
+     * Generate RSA Json Web Key.
+     * @return RSA Json Web Key
+     */
     public static RSAKey generateRsa() {
         KeyPair keyPair = KeyGeneratorUtils.generateRsaKey();
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
