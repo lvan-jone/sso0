@@ -39,6 +39,9 @@ import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPublicKey;
 import java.util.UUID;
 
+/**
+ * @author feng
+ */
 @Configuration(proxyBeanMethods = false)
 public class AuthorizationServerConfig {
 
