@@ -26,10 +26,17 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8800
+
 #    user:
 #      name: admin
 #      password: 123456
-
+#  thymeleaf:
+#    cache: false
+#    prefix: classpath:/templates/
+#    suffix: .html
+#  mvc:
+#    view:
+#      suffix: .html
 logging:
   level:
     root: INFO
