@@ -13,6 +13,9 @@ import com.nimbusds.jose.jwk.Curve;
 import com.nimbusds.jose.jwk.ECKey;
 import com.nimbusds.jose.jwk.OctetSequenceKey;
 import com.nimbusds.jose.jwk.RSAKey;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @author feng
@@ -25,6 +28,7 @@ public final class Jwks {
 
     /**
      * Generate RSA Json Web Key.
+     *
      * @return RSA Json Web Key
      */
     public static RSAKey generateRsa() {
@@ -59,5 +63,14 @@ public final class Jwks {
                 .keyID(UUID.randomUUID().toString())
                 .build();
         // @formatter:on
+    }
+
+    public static void main(String[] args) {
+        BCryptPasswordEncoder encoder2 = new BCryptPasswordEncoder();
+        String rawPassword = "123";  // 你要加密的原始密码
+        String encodedPassword = encoder2.encode(rawPassword);
+        System.out.println("Encoded Password: " + encodedPassword);
+        boolean matches = encoder2.matches(rawPassword, encodedPassword);
+        System.out.println("Password Matches: " + matches);
     }
 }
