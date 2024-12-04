@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,19 +13,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
 @Slf4j
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig  {
+public class SecurityConfig {
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        log.info("passwordEncoder");
-//        return new BCryptPasswordEncoder();
-//    }
 
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -53,11 +50,17 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain standardSecurityFilterChain(HttpSecurity http) throws Exception {
         log.info("standardSecurityFilterChain");
-        http.authorizeHttpRequests((authorize) -> authorize
-                        .anyRequest()
-                        .authenticated())
+        http
+                .csrf().disable()
+                .authorizeHttpRequests((authorize) -> authorize
+//                        .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                                .antMatchers(HttpMethod.POST, "/user/**").permitAll()
+                                .antMatchers(HttpMethod.GET, "/user/**").permitAll()
+                                .anyRequest()
+                                .authenticated()
+                )
                 .formLogin(Customizer.withDefaults());
-        return http.build();
+        return http.logout(logout -> logout.permitAll()).build();
     }
 
 //    @Bean
