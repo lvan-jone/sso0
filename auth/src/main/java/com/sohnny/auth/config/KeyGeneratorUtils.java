@@ -12,7 +12,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 /**
- * @author Joe Grandja
+ * @author feng
  * @since 0.1.0
  */
 final class KeyGeneratorUtils {
